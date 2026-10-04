@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>نمونهٔ مشخصات خودرو به فارسی</title>
+<style>
+  body { margin:0; background:#f5f7fa; color:#182331; font:16px/1.9 Tahoma,sans-serif; }
+  main { max-width:760px; margin:40px auto; padding:0 20px 40px; }
+  h1 { font-size:26px; margin-bottom:8px; }
+  .note { color:#546374; margin-top:0; }
+  label { display:block; margin:22px 0; }
+  select { font:inherit; background:white; padding:6px 12px; border:1px solid #bbc7d4; border-radius:8px; margin-right:8px; }
+  section { background:white; border:1px solid #e1e7ee; border-radius:12px; padding:14px 20px; margin:14px 0; }
+  h2 { font-size:19px; margin:0 0 10px; }
+  dl { margin:0; } .row { display:flex; justify-content:space-between; gap:18px; padding:8px 0; border-top:1px solid #edf0f5; }
+  dt { color:#546374; } dd { margin:0; font-weight:600; text-align:left; }
+  @media(max-width:480px) { main { margin-top:24px; } h1 { font-size:22px; } .row { flex-wrap:wrap; } }
+</style>
+<main>
+  <h1>مشخصات خودرو به فارسی</h1>
+  <p class="note">تمام اعداد این نمونه ساختگی‌اند. نوع پیشرانه را تغییر دهید تا دسته‌بندی مشخصات تغییر کند.</p>
+  <label>نوع پیشرانه
+    <select id="powertrain">
+      <option value="PHEV">پلاگین هیبرید</option><option value="BEV">برقی</option>
+      <option value="ICE">درون‌سوز</option><option value="">نامشخص</option>
+    </select>
+  </label>
+  <div id="output" aria-live="polite"></div>
+  <p id="error" role="alert"></p>
+</main>
+<script type="module">
+  import { buildDisplaySections } from '../dist/index.js';
+  import { sampleTechnical } from './fixture.mjs';
+  const select = document.getElementById('powertrain');
+  const output = document.getElementById('output');
+  function render() {
+    output.replaceChildren();
+    for (const group of buildDisplaySections(sampleTechnical, select.value || null)) {
+      const section = document.createElement('section');
+      const heading = document.createElement('h2'); heading.textContent = group.label_fa;
+      const list = document.createElement('dl');
+      for (const spec of group.specs) {
+        const row = document.createElement('div'); row.className = 'row';
+        const term = document.createElement('dt'); term.textContent = spec.label_fa;
+        const value = document.createElement('dd'); value.textContent = spec.value;
+        row.append(term, value); list.append(row);
+      }
+      section.append(heading, list); output.append(section);
+    }
+  }
+  select.addEventListener('change', render); render();
+</script>
+</html>
