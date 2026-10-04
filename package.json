@@ -1,0 +1,23 @@
+{
+  "name": "@sarahakimpoor/persian-vehicle-specs",
+  "version": "0.1.0",
+  "description": "Dependency-free Persian vehicle specification formatting and presentation metadata",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } },
+  "files": ["dist", "src", "types", "scripts/build.mjs", "LICENSE", "README.md", "README.fa.md", "CHANGELOG.md"],
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/Sarahakimpoor/persian-vehicle-specs.git" },
+  "homepage": "https://github.com/Sarahakimpoor/persian-vehicle-specs#readme",
+  "bugs": { "url": "https://github.com/Sarahakimpoor/persian-vehicle-specs/issues" },
+  "engines": { "node": ">=22.18.0" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "example": "npm run build && node examples/node.mjs",
+    "prepack": "npm run build"
+  },
+  "keywords": ["persian", "farsi", "vehicle", "specifications", "automotive", "rtl"]
+}
